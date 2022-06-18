@@ -19,8 +19,15 @@ while True:
 
     _, frame = video.read()
     gray = cv2.cvtColor(frame,cv2.COLOR_BGR2GRAY)
+    faces = face_cascade.detectMultiScale(
+        gray,
+        scaleFactor = 1.3,
+        minNeighbors = 7,
+        minSize =(50,50))
 
     imgbytes = cv2.imencode('.png',gray)[1].tobytes()
     window['-IMAGE-'].update(data = imgbytes)
+
+    window['-TEXT-'].update(f'People in picture: {len(faces)}')
 
 window.close()
