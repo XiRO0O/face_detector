@@ -25,7 +25,10 @@ while True:
         minNeighbors = 7,
         minSize =(50,50))
 
-    imgbytes = cv2.imencode('.png',gray)[1].tobytes()
+    for (x, y, w, h) in faces:
+        cv2.rectangle(frame,(x,y),(x + w, y + h),(255,0,0),2)
+
+    imgbytes = cv2.imencode('.png',frame)[1].tobytes()
     window['-IMAGE-'].update(data = imgbytes)
 
     window['-TEXT-'].update(f'People in picture: {len(faces)}')
